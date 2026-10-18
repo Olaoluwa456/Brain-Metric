@@ -1,0 +1,47 @@
+BRAINMETRIC v9 AUDITED BUILD — QA REPORT
+Build: BrainMetric-PWA-V9-Audited.zip
+Date: 2026-10-18
+
+SUMMARY
+The package passed all static checks, Node regression checks, a Chromium in-memory DOM interaction suite (19/19 checks), and ZIP integrity verification. This is a high-coverage pre-deployment check, not a guarantee that every device/browser has zero bugs.
+
+BUGS FOUND AND FIXED DURING THE AUDIT
+1. The Settings & data navigation control was outside the click event-delegation root, so the control could appear clickable without opening Settings. Event delegation now listens at the sidebar root.
+2. The BrainMetric brand link did not reliably return to Overview in the single-page app. It now routes to Overview through the sidebar handler, with index.html as a regular-link fallback.
+3. Two generated fraction exercises described answers as exact but rendered floating-point approximations. They now use simplified exact fraction strings.
+4. Some generated syllogism prompts had incorrect plural grammar. They were rewritten in clear, grammatical group-membership terms.
+5. One knowledge question repeated the starter bank's checkmate question. It was replaced with a distinct, accurate question about which chess piece can jump over intervening pieces.
+
+AUTOMATED CHECKS PASSED
+- JavaScript syntax: app.js, question-bank.js and sw.js.
+- Question bank: 6,441 knowledge questions + 1,000 reasoning exercises = 7,441 total.
+- All 7,441 prompts passed the Unicode-aware duplicate audit; 0 duplicate stems were found.
+- No numbered filler such as “Question 667”, no empty prompt/answer/explanation, no invalid answer indices, no duplicate options, no floating-point answer artifacts, and no obvious null/undefined/NaN placeholder artifacts were found.
+- All questions have four distinct choices and valid keyed answers under the structural audit.
+- 16 quiz collections validated; question counts and deterministic daily/weekly challenge sets passed.
+- Runtime harness: app starts, all 16 quiz collections render, assessment scores and persists results, Question Bank view opens, daily/weekly seed behavior is consistent.
+- Chromium in-memory DOM interaction suite: 19/19 checks passed.
+  * All sidebar screens, including Settings & data, navigate correctly.
+  * Brand logo returns to Overview.
+  * Quiz search filters; Question Bank search and Maths filter work.
+  * 20-question Ultimate Test completes, saves a result, and exports a PNG result card.
+  * Daily Challenge awards XP once, reveals answer/explanation, and disables answers after completion.
+  * Focus Finder, Pattern Rush, Number Sprint and Memory Flash complete.
+  * Score reset clears statistics while preserving the question bank.
+  * Dark/light toggle works in both directions.
+  * At 390px mobile viewport width, document does not overflow horizontally.
+  * No JavaScript page errors or browser console errors occurred in this test.
+- Static HTML audit: 18 HTML pages and 203 local references; no missing local references or inline event-handler attributes.
+- Service worker: 43 precache entries exist; cache name is brainmetric-pwa-secure-v9-audited.
+- CSS: 18 stylesheets parsed; 557 qualified rules; 0 parser errors.
+- PWA manifest is valid JSON and both icon files exist.
+- Netlify _headers file exists and includes same-origin CSP and standard browser security headers.
+- ZIP archive integrity check passed after packaging.
+
+LIMITATIONS / ITEMS TO VERIFY AFTER DEPLOYMENT
+- Chromium interaction tests used an in-memory document with the package assets, not a public HTTPS origin. This exercises real DOM handlers but does not verify the deployed server's headers or TLS configuration.
+- Service-worker registration, install prompts, update propagation and true offline reload should be tested on the live HTTPS domain after publishing.
+- Netlify's deployed response must be inspected to confirm that _headers was published at the site root and each security header is actually sent.
+- Automated structural checks do not prove every factual statement in thousands of questions. The bank should receive continuing editorial review before being represented as fully fact-checked or official exam content.
+- Client-side scores and XP can be edited by the device owner. Do not use them for prizes, certified exams or tamper-resistant public rankings without server-side validation.
+- These checks reduce known risks but cannot guarantee zero bugs or vulnerabilities on every device/browser.

@@ -1,0 +1,32 @@
+{
+  "base_curated_question_count": 63,
+  "added_question_count": 6378,
+  "knowledge_bank_total": 6441,
+  "reasoning_question_count": 1000,
+  "total_practice_questions": 7441,
+  "added_by_topic": {
+    "geography": 1282,
+    "nigeria": 477,
+    "chemistry": 649,
+    "general": 5,
+    "culture": 14,
+    "history": 11,
+    "technology": 9,
+    "sports": 8,
+    "science": 151,
+    "language": 1136,
+    "mathematics": 2636
+  },
+  "exact_duplicate_stems_in_added_bank": 0,
+  "short_prompt_count": 0,
+  "ordinal_prefix_count": 0,
+  "missing_answer_count": 0,
+  "all_choices_count_4": true,
+  "all_explanations_present": true,
+  "total_prompt_stems_checked": 7441,
+  "exact_duplicate_stems_across_combined_bank": 0,
+  "numbered_filler_across_combined_bank": 0,
+  "invalid_answer_indices_across_combined_bank": 0,
+  "floating_point_answer_artifacts_across_combined_bank": 0,
+  "structural_validation": "pass"
+}

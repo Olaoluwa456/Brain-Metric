@@ -1,0 +1,48 @@
+{
+  "build": "BrainMetric PWA v9 audited — full package bug-hunt and regression run",
+  "passes": [
+    "origin/CSP/third-party dependency hardening",
+    "local storage type and size validation",
+    "service-worker cache containment"
+  ],
+  "headers_file": "_headers",
+  "external_script_dependencies": [],
+  "external_font_dependencies": [],
+  "inline_script_tags_in_main_app": 0,
+  "inline_stylesheet_blocks": 0,
+  "inline_event_handler_attributes": 0,
+  "local_storage_limits": {
+    "raw_chars": 2000000,
+    "attempts": 500,
+    "arcade_history": 500,
+    "string_lists_bounded": true
+  },
+  "service_worker_cache": "brainmetric-pwa-secure-v9-audited",
+  "important_limit": "Client-side scores and XP are editable by the device owner; no server-backed integrity.",
+  "deployment_check_required": "Verify headers at the live HTTPS origin after deployment.",
+  "release_features": [
+    "fresh local storage namespace resets legacy scores on first launch",
+    "separate reset-scores and erase-everything actions",
+    "Obsidian dark theme refresh",
+    "theme-aware browser chrome color",
+    "daily challenge completion guard and completed-answer review"
+  ],
+  "audit_fixes": [
+    "Settings & data click handler attached at sidebar root",
+    "Brand logo routes to Overview in the single-page app",
+    "Exact fractions are rendered without floating-point artifacts",
+    "Malformed grammar in generated syllogism prompts corrected",
+    "One repeated checkmate prompt replaced with a distinct chess movement question"
+  ],
+  "automated_verification": {
+    "javascript_syntax": "pass",
+    "runtime_regression_suite": "pass",
+    "chromium_dom_checks": "19/19 pass",
+    "static_html_reference_audit": "pass: 18 pages, 203 references, zero errors",
+    "service_worker_precache": "pass: 43/43 files present",
+    "css_parser": "pass: 18 stylesheets, zero parse errors",
+    "question_bank": "pass: 7,441 structurally valid prompts; zero duplicate stems detected",
+    "zip_integrity": "pass"
+  },
+  "live_deployment_verification_required": true
+}

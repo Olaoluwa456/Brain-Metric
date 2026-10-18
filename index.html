@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070B14">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon-192.png" type="image/png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BrainMetric">
+  <meta name="description" content="BrainMetric — take knowledge quizzes, practise reasoning, play brain games, tackle daily challenges and share quiz results. No account required.">
+  <meta name="keywords" content="general knowledge quiz, Nigeria quiz, Africa quiz, science quiz, history quiz, geography quiz, exam practice, brain teasers, trivia">
+  <title>BrainMetric — Think sharper</title>
+  <link rel="stylesheet" href="./app.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="./index.html" aria-label="BrainMetric home"><span class="brand-icon">B<span>m</span></span><span class="brand-copy"><b>BrainMetric</b><small>THINK SHARPER</small></span></a>
+      <div class="nav-heading">YOUR WORKSPACE</div>
+      <nav id="nav" aria-label="Main navigation">
+        <button class="nav-link active" data-page="home"><span class="nav-icon">⌂</span>Overview</button>
+        <button class="nav-link" data-page="discover"><span class="nav-icon">🌍</span>Explore quizzes <span class="nav-new">NEW</span></button>
+        <button class="nav-link" data-page="tests"><span class="nav-icon">◎</span>Test centre</button>
+        <button class="nav-link" data-page="daily"><span class="nav-icon">✦</span>Daily challenge <span class="nav-new">NEW</span></button>
+        <button class="nav-link" data-page="academy"><span class="nav-icon">▤</span>Academy</button>
+        <button class="nav-link" data-page="puzzles"><span class="nav-icon">◇</span>Puzzle lab</button>
+        <button class="nav-link" data-page="arcade"><span class="nav-icon">🎮</span>Brain Arcade <span class="nav-new">PLAY</span></button>
+        <button class="nav-link" data-page="missions"><span class="nav-icon">☀</span>Daily missions</button>
+        <button class="nav-link" data-page="journey"><span class="nav-icon">➤</span>Brain Journey</button>
+        <button class="nav-link" data-page="review"><span class="nav-icon">↻</span>Mistake review</button>
+        <button class="nav-link" data-page="coach"><span class="nav-icon">✧</span>Coach</button>
+        <button class="nav-link" data-page="analytics"><span class="nav-icon">▥</span>Analytics</button>
+        <button class="nav-link" data-page="achievements"><span class="nav-icon">♜</span>Achievements</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="streak-box"><div class="streak-flame">✦</div><div><b id="streak-label">0 day streak</b><small>Consistency beats intensity.</small></div></div>
+        <button class="nav-link" data-page="settings"><span class="nav-icon">⚙</span>Settings & data</button>
+        <div class="profile-mini"><div class="avatar" id="account-avatar">B</div><div class="profile-copy"><b id="account-display-name">Curious mind</b><small>Saved on this device</small></div></div>
+      </div>
+    </aside>
+    <main class="main" id="main">
+      <header class="topbar">
+        <button class="mobile-menu icon-btn" id="menu-toggle" aria-label="Open navigation">☰</button>
+        <div class="crumb"><span>Workspace</span><span class="crumb-slash">/</span><b id="page-name">Overview</b></div>
+        <div class="top-actions"><span class="save-status" id="sync-status"><i></i> Saved on device</span><button class="icon-btn" id="theme-toggle" aria-label="Toggle light and dark theme" title="Toggle theme">◐</button><div class="avatar avatar-sm" id="top-avatar">B</div></div>
+      </header>
+      <section class="content" id="content" tabindex="-1" aria-live="polite"></section>
+      <footer class="footer">BrainMetric <span>•</span> Practice performance, not a measure of your whole intelligence. <span>•</span> <a href="./quizzes/index.html">Browse the public quiz directory</a></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="./question-bank.js"></script>
+  <script src="./app.js" defer></script>
+</body>
+</html>

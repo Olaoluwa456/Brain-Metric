@@ -1,0 +1,74 @@
+BRAINMETRIC SECURITY REVIEW — HARDENED STATIC PWA (v7 RESET/THEME UPDATE)
+Build date: 2026-10-18
+
+THREE SECURITY PASSES
+1) Browser execution and origin boundary
+   - Removed the Google Fonts import and external font dependency.
+   - Moved the main executable inline script to same-origin app.js.
+   - Moved all inline stylesheet blocks to same-origin CSS files.
+   - Added a Netlify _headers policy: CSP blocks inline scripts, inline event handlers,
+     objects, frames and external network connections; browser headers also restrict
+     framing, content sniffing, referrers, permissions and cross-origin reuse.
+   - Inline style attributes remain permitted for existing dynamic layout styles; inline
+     script execution does not. No inline event-handler attributes were present in the HTML.
+
+2) Local data integrity and robustness
+   - Bound local-storage record size and collection lengths.
+   - Normalized profile fields, dates, numbers, settings, scores and stored list values.
+   - Invalid/corrupt storage falls back to clean defaults instead of being trusted blindly.
+   - All locally stored values remain user-editable. This prevents malformed saved data
+     from being treated as trusted input; it does not provide tamper-proof scores.
+
+3) Offline cache containment
+   - Versioned the cache and precaches only known same-origin application files.
+   - Ignores non-GET and cross-origin requests; does not cache query-specific challenge URLs.
+   - Deletes only old BrainMetric cache versions and has a static allow-list for cache writes.
+
+TEN-POINT VERIFICATION CHECKLIST
+[1] Main app JavaScript moved to app.js: checked by package audit.
+[2] Google Fonts external import removed: checked by source scan.
+[3] All HTML inline style blocks externalized: checked by source scan.
+[4] No inline event-handler attributes in app/topic HTML: checked by source scan.
+[5] CSP script-src is same-origin-only with script-src-attr 'none': checked in _headers.
+[6] Frame embedding is denied by both CSP and X-Frame-Options: checked in _headers.
+[7] Local storage size and collection bounds added: checked by source audit.
+[8] Service-worker requests constrained to same-origin GET allow-list: checked by source audit.
+[9] Release checks passed: JavaScript syntax, local asset links, service-worker precache paths, storage-validation tests, quiz-flow smoke test, and stored-payload DOM-XSS smoke test.
+[10] Netlify header delivery and live HTTPS-site testing: still required after upload.
+
+SECURITY LIMITS
+- This is a static account-free PWA. A visitor can inspect the downloaded question bank and
+  change their own local scores/XP. Do not use client-side results for cash prizes, official
+  examinations, or a trusted public leaderboard. Those need server-side validation.
+- Local browser storage is not a secure vault and may be cleared by the browser.
+- CSP and HSTS are configured for Netlify's _headers support. If hosted elsewhere, configure
+  equivalent HTTP response headers at that host. HSTS requires HTTPS; publish via HTTPS.
+- No penetration test or audit of the live deployed origin has been performed. The checks
+  described here are source/package checks, not a guarantee of zero vulnerabilities.
+
+
+LOCAL VERIFICATION NOTES
+- An in-memory Chromium smoke test loaded the app and completed the Ultimate Knowledge Test
+  flow without JavaScript errors; a stored HTML payload did not create executable DOM markup.
+- Direct browser navigation to the local test server was blocked by the execution environment,
+  so this was not a deployed-origin test and did not verify Netlify's parsing/delivery of _headers.
+
+
+RELEASE v7 UPDATE
+- Storage namespace changed to brainmetric.public.v2 to start this release with fresh local scores.
+- Added separately-confirmed score/statistics reset and full erase actions.
+- Refreshed the dark palette, cards, controls and theme toggle; browser theme color follows the selected theme.
+- Service-worker cache name updated in v9 to brainmetric-pwa-secure-v9-audited.
+
+BUG-HUNT FOLLOW-UP
+- Added idempotent Daily Challenge reward handling. Completed daily items remain disabled after navigation/reload and display the correct answer and explanation. Handler validates the selected option and checks completion before awarding XP.
+
+- v8 bug-fix release adds duplicate daily reward protection and regression checks for local progress resets, themes, malformed stored data and quiz collections.
+
+
+V9 FULL-PACKAGE BUG AUDIT
+- Fixed Settings & data navigation and the brand link to Overview.
+- Removed floating-point approximations from generated exact-fraction exercises.
+- Corrected generated syllogism grammar and replaced a repeated chess checkmate prompt.
+- Current QA report records 19/19 Chromium in-memory DOM checks, passing Node regression tests, 18 CSS files with no parser errors, and a complete local asset/precache audit.
+- Live hosting headers, service-worker installation/update behavior and true offline mode still need confirmation on the deployed HTTPS domain.
